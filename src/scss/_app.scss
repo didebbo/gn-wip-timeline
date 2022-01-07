@@ -102,8 +102,14 @@
                         color: $c-white;
                         margin: 1em;
                         padding: 2em;
+                        width: 80%;
                         border-radius: 0.4em;
+                        .name {
+                            font-size: 1.2em;
+                        }
                         .created {
+                            font-size: 0.8em;
+                            font-weight: 600;
                             color: $c-red-400;
                         }
                     }
