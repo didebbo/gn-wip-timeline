@@ -1,0 +1,24 @@
+Se è di tuo interesse il ruolo di frontend developer, come agli altri candidati, ti chiediamo lo svolgimento di un esercizio di frontend.
+È un esercizio vicino alla prassi lavorativa normale adeguato alla candidatura che ci permette di capire il tuo approccio logico.
+
+Non c'è una scadenza predefinita, il tuo tempo è prezioso e avrai anche altri impegni.
+In caso di valutazione positiva ne parleremo insieme nel colloquio, in ogni caso ti daremo un report scritto di perchè possa essere comunque per te una esperienza utile.
+L'esercizio di frontend può essere eseguito con buon grado di libertà:
+
+    css: scegli il preprocessore che ritieni migliore fra less o scss, mostrando le modalità che sei solito usare e che ritieni migliori
+    html5: usa la logica di semantica che ritieni migliore (scegli fra i diversi paradigmi di nomenclatura o usa quello con il quale sei consono lavorare), ti sproniamo ad evitare frameworks di UI pre-definiti (foundation, bootstrap o altro)
+    task runner, module bundler: utilizza la soluzione che ritieni migliore fra gulp, grunt, webpack nelle modalità che ritieni (babel, webpack plugins, scaffolding degli asset distribuiti, ...) se non hai ancora affrontato questi temi ti sproniamo a documentarti su webpack per lo svolgimento dell'esercizio, un setup base basta e avanza.
+
+Per questo esercizio ti chiediamo di non avvalerti di frameworks come React, Vue o Angular, ma di lavorare in ES6 semplice.
+Apprezziamo e utilizziamo molto sia Vue che React, ma è utile che l'esercizio sia scritto in ES6 puro per valutare le conoscenze delle direttive ES6 pure e la logica con cui vengono usate.
+
+
+ESERCIZIO:
+
+    Ottieni un componente timeline come l'esempio di questo video: http://wipitalia.it/exercise/
+    Dovrai ottenere i dati inerenti gli elementi di timeline da questo servizio: https://swapi.dev/api/planets
+    Tramite un bottone otterrai il riordinamento del listato sulla base della chiave "created"
+    Tramite due campi date potrai filtrare il listato per periodo sempre usando la chiave "created"
+    Stilizza a tuo piacere l'impatto grafico (non limitarti a riprodurre l'esempio, creane uno a tuo gusto personale) ottenendo un risultato che tu ritieni soddisfacente
+
+La consegna si prevede in  una repository git pubblica con le tue commit.
