@@ -1,4 +1,5 @@
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px),
+only screen and (max-width: 576px) and (orientation: landscreen)  {
     #app {
         main {
             .actions {
