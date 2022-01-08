@@ -21,7 +21,7 @@ let data = {
 const init = (data) => {
     axios.get(data.url)
         .then((response) => {
-            data.filteredResults = data.results =  response.data.results;
+            data.filteredResults = data.results = response.data.results;
             generateDataResults(data.filteredResults);
         });
 }
@@ -78,31 +78,34 @@ btnOrderBy.addEventListener('click', () => {
 
 // Search From => To
 btnSearch.addEventListener('click', () => {
-    const from = new Date(inputFrom.value);
-    const to = new Date(inputTo.value);
+    const from = new Date(inputFrom.value).setHours(0,0,0,0);
+    const to = new Date(inputTo.value).setHours(0,0,0,0);
 
     if (isNaN(from) && isNaN(to)) {
         generateDataResults(data.results);
     }
     else {
         data.filteredResults = data.results.filter(element => {
-            const created = Date(element.created)
-            return created >= from && created <= to
+            const created = new Date(element.created).setHours(0,0,0,0);
+            // created.setTime(("01:00:00"));
+            // console.log(typeof created);
+            console.log(created + " >= " + from + " : " + (created >= from));
+            console.log(created + " <= " + to + " : " + (created <= to));
+            return (created >= from && created <= to);
         });
         generateDataResults(data.filteredResults);
     }
 
     const state = (isNaN(from) && !isNaN(to)) || (!isNaN(from) && isNaN(to));
-    showError(state,"Data range is invalid");
+    showError(state, "Data range is invalid");
 
 });
 
 // Show error log
 const showError = (state, msg) => {
-    console.log(state);
     errorLog.innerHTML = "";
     errorLog.classList.remove("show");
-    if(state) {
+    if (state) {
         errorLog.innerHTML = msg;
         errorLog.classList.add("show");
     }
