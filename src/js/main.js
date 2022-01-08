@@ -83,30 +83,25 @@ btnFilter.addEventListener('click', () => {
     const from = new Date(inputFrom.value).setHours(0, 0, 0, 0);
     const to = new Date(inputTo.value).setHours(0, 0, 0, 0);
     if (isNaN(from) && isNaN(to)) {
-        data.sorted = false;
         data.filteredResults = data.results;
     }
     else {
         data.filteredResults = data.results.filter(element => {
             const created = new Date(element.created).setHours(0, 0, 0, 0);
-            // console.log(created + " >= " + from + " : " + (created >= from));
-            // console.log(created + " <= " + to + " : " + (created <= to));
             return (created >= from && created <= to);
         });
     }
     generateDataResults(data.filteredResults);
 });
 
-// Show error log
+// Validate Input Data
 const validateInputs = () => {
     const from = new Date(inputFrom.value).setHours(0, 0, 0, 0);
     const to = new Date(inputTo.value).setHours(0, 0, 0, 0);
-
     data.hasError = (isNaN(from) && !isNaN(to)) || (!isNaN(from) && isNaN(to));
     errorLog.innerHTML = "";
     errorLog.classList.remove("show");
     if (data.hasError) {
-        console.log("im on error!");
         inputFrom.value = inputTo.value = "";
         data.filteredResults = data.results;
         errorLog.innerHTML = "Invalid Inputs";
