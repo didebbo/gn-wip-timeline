@@ -68,7 +68,7 @@ const generateDataResults = (results) => {
 
 // Order By
 btnOrderBy.addEventListener('click', () => {
-    data.filteredResults = data.results.sort((a, b) => {
+    data.filteredResults = data.filteredResults.sort((a, b) => {
         if (data.sorted) return new Date(a.created) - new Date(b.created);
         return new Date(b.created) - new Date(a.created);
     });
@@ -82,6 +82,7 @@ btnSearch.addEventListener('click', () => {
     const to = new Date(inputTo.value).setHours(0,0,0,0);
 
     if (isNaN(from) && isNaN(to)) {
+        data.sorted = false;
         generateDataResults(data.results);
     }
     else {
