@@ -5,7 +5,7 @@ import axios from 'axios';
 const btnOrderBy = document.getElementById("order-by");
 const inputFrom = document.getElementById("from");
 const inputTo = document.getElementById("to");
-const btnSearch = document.getElementById("search");
+const btnFilter = document.getElementById("filter");
 const errorLog = document.getElementById("error-log");
 
 
@@ -15,6 +15,7 @@ let data = {
     results: [],
     filteredResults: [],
     sorted: false,
+    hasError: false,
 };
 
 // Init Data 
@@ -77,38 +78,42 @@ btnOrderBy.addEventListener('click', () => {
 });
 
 // Search From => To
-btnSearch.addEventListener('click', () => {
-    const from = new Date(inputFrom.value).setHours(0,0,0,0);
-    const to = new Date(inputTo.value).setHours(0,0,0,0);
-
+btnFilter.addEventListener('click', () => {
+    validateInputs();
+    const from = new Date(inputFrom.value).setHours(0, 0, 0, 0);
+    const to = new Date(inputTo.value).setHours(0, 0, 0, 0);
     if (isNaN(from) && isNaN(to)) {
         data.sorted = false;
-        generateDataResults(data.results);
+        data.filteredResults = data.results;
     }
     else {
         data.filteredResults = data.results.filter(element => {
-            const created = new Date(element.created).setHours(0,0,0,0);
-            // created.setTime(("01:00:00"));
-            // console.log(typeof created);
-            console.log(created + " >= " + from + " : " + (created >= from));
-            console.log(created + " <= " + to + " : " + (created <= to));
+            const created = new Date(element.created).setHours(0, 0, 0, 0);
+            // console.log(created + " >= " + from + " : " + (created >= from));
+            // console.log(created + " <= " + to + " : " + (created <= to));
             return (created >= from && created <= to);
         });
-        generateDataResults(data.filteredResults);
     }
-
-    const state = (isNaN(from) && !isNaN(to)) || (!isNaN(from) && isNaN(to));
-    showError(state, "Data range is invalid");
-
+    generateDataResults(data.filteredResults);
 });
 
 // Show error log
-const showError = (state, msg) => {
+const validateInputs = () => {
+    const from = new Date(inputFrom.value).setHours(0, 0, 0, 0);
+    const to = new Date(inputTo.value).setHours(0, 0, 0, 0);
+
+    data.hasError = (isNaN(from) && !isNaN(to)) || (!isNaN(from) && isNaN(to));
     errorLog.innerHTML = "";
     errorLog.classList.remove("show");
-    if (state) {
-        errorLog.innerHTML = msg;
+    if (data.hasError) {
+        console.log("im on error!");
+        inputFrom.value = inputTo.value = "";
+        data.filteredResults = data.results;
+        errorLog.innerHTML = "Invalid Inputs";
         errorLog.classList.add("show");
+        setTimeout(() => {
+            errorLog.classList.remove("show");
+        }, 3000);
     }
 }
 

@@ -70,8 +70,8 @@
                 font-size: 0.6em;
                 color: $c-red-500;
                 font-weight: 600;
+                transition: opacity 2s;
                 &.show {
-                    transition: opacity 1s;
                     opacity: 1;
                 }
             }
