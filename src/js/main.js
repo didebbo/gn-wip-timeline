@@ -2,12 +2,18 @@
 import axios from 'axios';
 
 // DOM
-const orderBy = document.getElementById("order-by");
+const btnOrderBy = document.getElementById("order-by");
+const inputFrom = document.getElementById("from");
+const inputTo = document.getElementById("to");
+const btnSearch = document.getElementById("search");
+const errorLog = document.getElementById("error-log");
+
 
 // Vars
 let data = {
     url: "https://swapi.dev/api/planets",
     results: [],
+    filteredResults: [],
     sorted: false,
 };
 
@@ -15,14 +21,13 @@ let data = {
 const init = (data) => {
     axios.get(data.url)
         .then((response) => {
-            data.results = response.data.results;
-            generateDataResults(data.results);
+            data.filteredResults = data.results =  response.data.results;
+            generateDataResults(data.filteredResults);
         });
 }
 
 // Generate Dynamic DOM
 const generateDataResults = (results) => {
-    console.log(data.sorted);
     const row = document.getElementById("row");
     row.innerHTML = "";
     let t = 0;
@@ -31,7 +36,6 @@ const generateDataResults = (results) => {
         const elName = element.name;
         const elDate = element.created.split("T")[0];
         const elTime = element.created.split("T")[1].split("Z")[0];
-        // console.log(elName, elDate, elTime);
 
         // DOM 
         const col = document.createElement("li");
@@ -54,18 +58,54 @@ const generateDataResults = (results) => {
         col.appendChild(item);
         row.appendChild(col);
         setTimeout(() => {
+            row.classList.add("show");
+        }, 100);
+        setTimeout(() => {
             col.classList.add("show");
         }, 200 * t);
     });
 }
 
-init(data);
-
-orderBy.addEventListener('click', () => {
-    data.results = data.results.sort((a, b) => {
-        if(data.sorted) return new Date(a.created) - new Date(b.created);
+// Order By
+btnOrderBy.addEventListener('click', () => {
+    data.filteredResults = data.results.sort((a, b) => {
+        if (data.sorted) return new Date(a.created) - new Date(b.created);
         return new Date(b.created) - new Date(a.created);
     });
     data.sorted = !data.sorted;
-    generateDataResults(data.results);
+    generateDataResults(data.filteredResults);
 });
+
+// Search From => To
+btnSearch.addEventListener('click', () => {
+    const from = new Date(inputFrom.value);
+    const to = new Date(inputTo.value);
+
+    if (isNaN(from) && isNaN(to)) {
+        generateDataResults(data.results);
+    }
+    else {
+        data.filteredResults = data.results.filter(element => {
+            const created = Date(element.created)
+            return created >= from && created <= to
+        });
+        generateDataResults(data.filteredResults);
+    }
+
+    const state = (isNaN(from) && !isNaN(to)) || (!isNaN(from) && isNaN(to));
+    showError(state,"Data range is invalid");
+
+});
+
+// Show error log
+const showError = (state, msg) => {
+    console.log(state);
+    errorLog.innerHTML = "";
+    errorLog.classList.remove("show");
+    if(state) {
+        errorLog.innerHTML = msg;
+        errorLog.classList.add("show");
+    }
+}
+
+init(data);
