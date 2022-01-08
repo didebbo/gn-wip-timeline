@@ -4,8 +4,17 @@
     flex-direction: column;
     header {
         text-align: center;
+        .title {
+            font-size: 0.8em;
+            h1 > span {
+                font-style: italic;
+                > span {
+                    font-size: 1.2em;
+                }
+            }
+        }
     }
-    
+
     main {
         flex-grow: 1;
         display: flex;
@@ -64,7 +73,7 @@
                 &.show {
                     transition: opacity 1s;
                     opacity: 1;
-                } 
+                }
             }
         }
         .grid-results {
@@ -76,8 +85,8 @@
                 display: flex;
                 flex-direction: column;
                 list-style: none;
-                transition: opacity 0.5s;
                 &.show {
+                    transition: opacity 0.5s;
                     opacity: 1;
                 }
                 &::before {
@@ -99,8 +108,8 @@
                     justify-content: flex-end;
                     text-align: right;
                     width: 50%;
-                    transition: opacity 2s;
                     &.show {
+                        transition: opacity 2s;
                         opacity: 1;
                     }
                     &::after {
