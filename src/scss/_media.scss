@@ -1,4 +1,4 @@
-@media only screen and (orientation: landscape) {
+@media only screen and (max-width: 768px), screen and (orientation: portrait) {
     #app {
         main {
             .actions {
