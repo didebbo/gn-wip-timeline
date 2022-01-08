@@ -1,5 +1,4 @@
 // Imports
-import '../scss/main.scss'
 import axios from 'axios';
 
 // DOM
@@ -26,8 +25,9 @@ const generateDataResults = (results) => {
     console.log(data.sorted);
     const row = document.getElementById("row");
     row.innerHTML = "";
+    let t = 0;
     results.forEach(element => {
-
+        t++;
         const elName = element.name;
         const elDate = element.created.split("T")[0];
         const elTime = element.created.split("T")[1].split("Z")[0];
@@ -53,6 +53,9 @@ const generateDataResults = (results) => {
         item.appendChild(created);
         col.appendChild(item);
         row.appendChild(col);
+        setTimeout(() => {
+            col.classList.add("show");
+        }, 200 * t);
     });
 }
 
