@@ -86,7 +86,7 @@
                 flex-direction: column;
                 list-style: none;
                 &.show {
-                    transition: opacity 0.5s;
+                    transition: opacity 1s;
                     opacity: 1;
                 }
                 &::before {

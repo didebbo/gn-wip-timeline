@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 // DOM
+const gridResults = document.getElementById("grid-results");
 const btnOrderBy = document.getElementById("order-by");
 const inputFrom = document.getElementById("from");
 const inputTo = document.getElementById("to");
@@ -29,8 +30,8 @@ const init = (data) => {
 
 // Generate Dynamic DOM
 const generateDataResults = (results) => {
-    const row = document.getElementById("row");
-    row.innerHTML = "";
+    gridResults.innerHTML = "";
+    const row = document.createElement("li");
     let t = 0;
     results.forEach(element => {
         t++;
@@ -45,6 +46,7 @@ const generateDataResults = (results) => {
         const created = document.createElement("div");
         const small = document.createElement("small");
 
+        row.classList.add("row");
         col.classList.add("col");
         item.classList.add("item");
         name.classList.add("name");
@@ -59,12 +61,13 @@ const generateDataResults = (results) => {
         col.appendChild(item);
         row.appendChild(col);
         setTimeout(() => {
-            row.classList.add("show");
-        }, 100);
-        setTimeout(() => {
             col.classList.add("show");
         }, 200 * t);
     });
+    gridResults.appendChild(row);
+    setTimeout(() => {
+        row.classList.add("show");
+    }, 100);
 }
 
 // Order By
